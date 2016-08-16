@@ -1,3 +1,7 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,6 +19,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
+
+            <View
+                android:layout_marginTop="@dimen/basicDp"
+                android:layout_marginBottom="@dimen/basicDp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vector_drawable_noti"/>
+                <TextView
+                    android:id="@+id/detail_noti_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/basicDp"
+                    android:layout_marginLeft="@dimen/basicDp"
+
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
 
             <View
                 android:layout_marginTop="@dimen/basicDp"
@@ -72,6 +99,20 @@
                     android:id="@+id/long_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="@dimen/basicDp"
+                    android:layout_marginBottom="@dimen/basicDp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"/>
+
+                <Button
+                    android:id="@+id/detail_survey_btn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="상품 쿠폰 발급"
+                    />
             </LinearLayout>
 
             <View
@@ -99,3 +140,4 @@
     </RelativeLayout>
 
 </FrameLayout>
+</ScrollView>

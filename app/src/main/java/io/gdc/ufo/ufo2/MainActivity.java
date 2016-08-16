@@ -1,12 +1,17 @@
 package io.gdc.ufo.ufo2;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.ActionProvider;
+import android.view.ContextMenu;
+import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.splash);
-        //display the logo during 5 secondes,
+        //display the logo during 2 seconds,
         new CountDownTimer(2000,1000){
             @Override
             public void onTick(long millisUntilFinished){}
@@ -71,9 +76,26 @@ public class MainActivity extends AppCompatActivity
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
                 drawer.setDrawerListener(toggle);
+
                 toggle.syncState();
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+                //메인메뉴를 숨기고 이벤트 메뉴를 생성
+                Menu menu = navigationView.getMenu();
+                MenuItem m1 = menu.getItem(0);
+                MenuItem m2 = menu.getItem(1);
+                MenuItem m3 = menu.getItem(2);
+                MenuItem m4 = menu.getItem(3);
+                m1.setVisible(false);
+                m2.setVisible(false);
+                m3.setVisible(false);
+                m4.setVisible(false);
+                menu.add("단오제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("dano"));
+                menu.add("2016 제 8회 강릉커피축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("coffee"));
+                menu.add("삼척 맹방 유채꽃 축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("tanger"));
+                menu.add("오징어 축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("squid"));
+
                 navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
                 HomeFragment hf = new HomeFragment();
@@ -155,8 +177,13 @@ public class MainActivity extends AppCompatActivity
             }else{
                 Toast.makeText(this, "축제를 선택해 주세요",Toast.LENGTH_SHORT).show();
             }
-        }
+        } else{
+            String para = item.getIntent().getAction().toString();
+            Log.e("MENU PARA", para);
+            setMainEvent(para);
 
+
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -207,6 +234,19 @@ public class MainActivity extends AppCompatActivity
         Log.e("CALL BACK Seven : ", one);
     }
 
+    @Override
+    public void goNotiFromDetail(){
+        NotificationFragment nf = new NotificationFragment().newInstance(1, mainEvent);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, nf).commit();
+    };
+
+    @Override
+    public void goSurveyFromDetail(){
+        SurveyFragment sf = new SurveyFragment().newInstance(mainEvent, mainEvent);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, sf).commit();
+    };
+
+
     public void setMainEvent(String para){
         Event_VO vo = new Event_VO(para);
 
@@ -226,8 +266,21 @@ public class MainActivity extends AppCompatActivity
         DetailFragment df = new DetailFragment().newInstance(para, "FROM HOME");
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout,df).commit();
 
+        //이벤트 메뉴를 숨기고 메인 메뉴를 만듬
+        Menu menu = navigationView.getMenu();
+        MenuItem m1 = menu.getItem(0);
+        MenuItem m2 = menu.getItem(1);
+        MenuItem m3 = menu.getItem(2);
+        MenuItem m4 = menu.getItem(3);
+        m1.setVisible(true);
+        m2.setVisible(true);
+        m3.setVisible(true);
+        m4.setVisible(true);
+        menu.setGroupVisible(0, false);
+
     }
 
+    //이거 쓰나?
     public void submitForm(ArrayList<String> answer){
         CouponFragment cf = new CouponFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, cf).commit();

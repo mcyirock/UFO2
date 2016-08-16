@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,15 +39,6 @@ public class DetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DetailFragment newInstance(String param1, String param2) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -73,7 +65,7 @@ public class DetailFragment extends Fragment {
         Event_VO vo = new Event_VO(getArguments().getString("event"));
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        ImageView mainImage = (ImageView)view.findViewById(R.id.d_main_image);
+        final ImageView mainImage = (ImageView)view.findViewById(R.id.d_main_image);
         int mainImg = getContext().getResources().getIdentifier(vo.getMain_image(), "drawable", getContext().getPackageName());
         mainImage.setImageResource(mainImg);
         TextView sd = (TextView)view.findViewById(R.id.short_description);
@@ -81,11 +73,31 @@ public class DetailFragment extends Fragment {
         sd.setText(vo.getEvent_short_description());
         ld.setText(vo.getEvent_long_description());
 
+        TextView nt = (TextView)view.findViewById(R.id.detail_noti_title);
+        nt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.goNotiFromDetail();
+            }
+        });
+
+        Button surveyBtn = (Button)view.findViewById(R.id.detail_survey_btn);
+
+        nt.setText(vo.getNoticeList().get(0).getTitle());
+
+        surveyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.goSurveyFromDetail();
+            }
+        });
+
+
+
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -109,18 +121,9 @@ public class DetailFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void goNotiFromDetail();
+        void goSurveyFromDetail();
     }
 }
