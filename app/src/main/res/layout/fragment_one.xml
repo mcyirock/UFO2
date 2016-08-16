@@ -1,0 +1,65 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OneFragment">
+
+    <LinearLayout
+        android:id="@+id/one_main_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <View
+            android:layout_marginTop="@dimen/basicDp"
+            android:layout_marginBottom="@dimen/basicDp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/one_main_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="@dimen/basicDp"
+            android:layout_marginRight="@dimen/basicDp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basicDp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/one_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가장 좋아하는 커피 원산지는 어디?"
+                android:layout_marginTop="@dimen/basicDp"
+                android:layout_marginLeft="@dimen/basicDp"
+                android:textColor="@android:color/black"/>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/one_radio_group">
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/basicDp"
+            android:layout_marginBottom="@dimen/basicDp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
+
+
+    </LinearLayout>
+</FrameLayout>
+</ScrollView>

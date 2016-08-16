@@ -1,0 +1,104 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.gdc.ufo.ufo2.fragment.InforFragments.infor_hist">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:id="@+id/infor_hist_main_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <View
+                android:layout_marginTop="@dimen/basicDp"
+                android:layout_marginBottom="@dimen/basicDp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+            <ImageView
+                android:id="@+id/infor_hist_main_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fev1_01"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="@dimen/basicDp"
+                android:layout_marginRight="@dimen/basicDp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/basicDp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/infor_hist_short_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="단오를 중심으로 8일간의 축제"
+                    android:layout_marginTop="@dimen/basicDp"
+                    android:layout_marginLeft="@dimen/basicDp"
+                    android:textColor="@android:color/black"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="15dp"
+                        android:src="@drawable/vector_drawable_date"
+                        android:tint="@color/colorPrimary"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="@dimen/basicDp"
+                        android:layout_marginBottom="@dimen/basicDp"/>
+                    <TextView
+                        android:id="@+id/infor_hist_event_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:text="2016. 06. 05 - 2016. 06. 12"
+                        android:layout_marginBottom="@dimen/basicDp"
+                        android:layout_marginTop="3dp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/infor_hist_long_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/basicDp"
+                android:layout_marginBottom="@dimen/basicDp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/advertisement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/banner01"
+            android:layout_below="@id/infor_hist_main_ll"
+            android:adjustViewBounds="true"/>
+    </RelativeLayout>
+
+</FrameLayout>
+</ScrollView>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/g_1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/notifications_tab"
+            android:icon="@drawable/vector_drawable_noti"
+            android:title="공지사항"
+            />
+    </group>
+
+
+    <group
+        android:id="@+id/g_2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/event_info_tab"
+            android:icon="@drawable/vector_drawable_info"
+            android:title="축제정보" />
+    </group>
+
+
+    <group
+        android:id="@+id/g_3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/survey_tab"
+            android:icon="@drawable/vector_drawable_survey"
+            android:title="서베이" />
+    </group>
+
+
+    <group
+        android:id="@+id/g_4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/go_home_tab"
+            android:icon="@drawable/vector_drawable_home"
+            android:title="메인화면" />
+    </group>
+
+
+</menu>
