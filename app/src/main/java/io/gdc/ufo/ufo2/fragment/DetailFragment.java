@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import io.gdc.ufo.ufo2.R;
@@ -92,6 +93,13 @@ public class DetailFragment extends Fragment {
             }
         });
 
+        LinearLayout ll = (LinearLayout)view.findViewById(R.id.detail_desc_layout);
+        ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.goInfoFromDetail();
+            }
+        });
 
 
 
@@ -125,5 +133,6 @@ public class DetailFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
         void goNotiFromDetail();
         void goSurveyFromDetail();
+        void goInfoFromDetail();
     }
 }

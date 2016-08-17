@@ -2,31 +2,22 @@ package io.gdc.ufo.ufo2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
-import android.view.SubMenu;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.gdc.ufo.ufo2.fragment.CouponShowFragment;
 import io.gdc.ufo.ufo2.fragment.DetailFragment;
@@ -42,9 +33,9 @@ import io.gdc.ufo.ufo2.fragment.SurveyFragments.SevenFragment;
 import io.gdc.ufo.ufo2.fragment.SurveyFragments.SixFragment;
 import io.gdc.ufo.ufo2.fragment.SurveyFragments.ThreeFragment;
 import io.gdc.ufo.ufo2.fragment.SurveyFragments.TwoFragment;
+import io.gdc.ufo.ufo2.fragment.VO.Answer_VO;
 import io.gdc.ufo.ufo2.fragment.VO.Event_VO;
 import io.gdc.ufo.ufo2.fragment.VO.Notice_VO;
-import io.gdc.ufo.ufo2.fragment.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener,
@@ -55,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         FiveFragment.OnFragmentInteractionListener, SixFragment.OnFragmentInteractionListener,
         SevenFragment.OnFragmentInteractionListener, CouponFragment.OnFragmentInteractionListener{
     public static String mainEvent = "ufo";
+    public Answer_VO answer = new Answer_VO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +117,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void submitSurvey(String para){
-        Toast.makeText(this, "설문에 응해 주셔서 감사합니다", Toast.LENGTH_LONG).show();
-        CouponShowFragment csf = new CouponShowFragment().newInstance(para, para);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, csf).commit();
-
+        //답은 1번부터 6번까지만 체크 사진을 아직 구현 안함
+        if(answer.getA1().equals("") || answer.getA2().equals("") || answer.getA3().equals("") || answer.getA4().equals("") || answer.getA5().equals("") || answer.getA6().equals("")){
+            Toast.makeText(this, "모든 질문에 답변을 해주세요", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "설문에 응해 주셔서 감사합니다", Toast.LENGTH_LONG).show();
+            CouponShowFragment csf = new CouponShowFragment().newInstance(para, para);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, csf).commit();
+        }
     }
 
     @Override
@@ -153,8 +149,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.go_home_tab){
-                HomeFragment hf = new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout,hf).commit();
+                setDefaultEvent();
         } else if(id == R.id.notifications_tab){
             //이벤트가 UFO라면 아직 메인 이벤트를 정하지 않은 상태
             if(!mainEvent.equals("ufo")) {
@@ -202,36 +197,43 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onOneTextInput(String one){
         Log.e("CALL BACK ONE : ", one);
+        answer.setA1(one);
     }
 
     @Override
     public void onTwoTextInput(String one){
         Log.e("CALL BACK Two : ", one);
+        answer.setA2(one);
     }
 
     @Override
     public void onThreeTextInput(String one){
         Log.e("CALL BACK Three : ", one);
+        answer.setA3(one);
     }
 
     @Override
     public void onFourTextInput(String one){
         Log.e("CALL BACK Four : ", one);
+        answer.setA4(one);
     }
 
     @Override
     public void onFiveTextInput(String one){
         Log.e("CALL BACK FIVE : ", one);
+        answer.setA5(one);
     }
 
     @Override
     public void onSixTextInput(String one){
         Log.e("CALL BACK Six : ", one);
+        answer.setA6(one);
     }
 
     @Override
     public void onSevenTextInput(String one){
         Log.e("CALL BACK Seven : ", one);
+        answer.setA7(one);
     }
 
     @Override
@@ -246,9 +248,16 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, sf).commit();
     };
 
+    @Override
+    public void goInfoFromDetail(){
+        InformationFragment inf = new InformationFragment().newInstance(mainEvent, mainEvent);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, inf).commit();
+    }
+
 
     public void setMainEvent(String para){
         Event_VO vo = new Event_VO(para);
+        answer = new Answer_VO();
 
         mainEvent = para;
         setTitle(vo.getTitle());
@@ -280,9 +289,43 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    //이거 쓰나?
-    public void submitForm(ArrayList<String> answer){
-        CouponFragment cf = new CouponFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout, cf).commit();
+    public void setDefaultEvent(){
+        answer = new Answer_VO();
+
+        mainEvent = "ufo";
+        setTitle("UFO");
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        TextView tv = (TextView)header.findViewById(R.id.logo_title);
+        tv.setText("get Ur Festival On");
+        TextView tv1 = (TextView)header.findViewById(R.id.logo_desc);
+        tv1.setText("축제를 즐기는 새로운 방법");
+        ImageView iv = (ImageView)header.findViewById(R.id.logo);
+        Context context = iv.getContext();
+        int logo = context.getResources().getIdentifier("@drawable/symbol", "drawable", context.getPackageName());
+        iv.setImageResource(logo);
+
+        //메인메뉴를 숨기고 이벤트 메뉴를 생성
+        Menu menu = navigationView.getMenu();
+        MenuItem m1 = menu.getItem(0);
+        MenuItem m2 = menu.getItem(1);
+        MenuItem m3 = menu.getItem(2);
+        MenuItem m4 = menu.getItem(3);
+        m1.setVisible(false);
+        m2.setVisible(false);
+        m3.setVisible(false);
+        m4.setVisible(false);
+        menu.add("단오제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("dano"));
+        menu.add("2016 제 8회 강릉커피축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("coffee"));
+        menu.add("삼척 맹방 유채꽃 축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("tanger"));
+        menu.add("오징어 축제").setIcon(R.drawable.ic_menu_share).setIntent(new Intent("squid"));
+
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
+
+        HomeFragment hf = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main_frameLayout,hf).commit();
+
+
     }
+
 }

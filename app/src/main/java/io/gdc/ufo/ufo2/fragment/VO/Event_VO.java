@@ -421,7 +421,6 @@ public class Event_VO {
 
 
         }
-
     }
     private String title;
     private String logo;
